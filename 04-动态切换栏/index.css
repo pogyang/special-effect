@@ -1,0 +1,119 @@
+html {
+  box-sizing: border-box;
+  --bgColorMenu: #1d1d27;
+  --duration: .7s;
+}
+html *,
+html *::before,
+html *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffb457;
+  /* 这个属性只用于iOS (iPhone和iPad)。当你点击一个链接或者通过Javascript定义的可点击元素的时候，它就会出现一个半透明的灰色背景。要重设这个表现，你可以设置-webkit-tap-highlight-color为任何颜色。
+    想要禁用这个高亮，设置颜色的alpha值为0即可。
+    示例：设置高亮色为50%透明的红色:
+    -webkit-tap-highlight-color: rgba(255,0,0,0.5);
+    浏览器支持: 只有iOS(iPhone和iPad).*/
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--duration);
+}
+
+.menu {
+  margin: 0;
+  display: flex;
+  width: 32.05em;
+  font-size: 1.5em;
+  padding: 0 2.85em;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bgColorMenu);
+}
+
+.menu__item {
+  all: unset;
+  flex-grow: 1;
+  z-index: 100;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  padding: 0.55em 0.55em;
+  will-change: transform;
+  transition: transform var(--timeOut , var(--duration));
+}
+
+.menu__item::before {
+  content: '';
+  z-index: -1;
+  width: 4.2em;
+  height: 4.2em;
+  border-radius: 50%;
+  position: absolute;
+  transform: scale(0);
+  transition: background-color var(--duration), transform var(--duration);
+}
+
+.menu__item.active {
+  transform: translate3d(0, -.8em , 0);
+}
+
+.menu__item.active::before{
+  transform: scale(1);
+  background-color: var(--bgColorItem);
+}
+
+.icon {
+  width: 2.6em;
+  height: 2.6em;
+  stroke: white;
+  fill: transparent;
+  stroke-width: 1pt;
+  stroke-miterlimit: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 400;
+}
+
+.menu__item.active .icon {
+  animation: strok 1.5s reverse;
+}
+
+@keyframes strok {
+  100% {
+    stroke-dashoffset: 400;
+  }
+}
+
+.menu__border {
+  position: absolute;
+  left: 0;
+  bottom: 99%;
+  width: 10.9em;
+  height: 2.4em;
+  clip-path: url(#menu);
+  will-change: transform;
+  background-color: var(--bgColorMenu);
+  transition: transform var(--timeOut , var(--duration));
+}
+
+.svg-container {
+  width: 0;
+  height: 0;
+}
+
+@media screen and (max-width: 50em) {
+  .menu {
+    font-size: .8em;
+  }
+}
